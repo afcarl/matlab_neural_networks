@@ -16,9 +16,10 @@ a1 = x * W1;
 a1 = a1 + repmat(bias1, [size(a1,1), 1]); % bias
 
 % activation function
-z1 = max(a1, 0); % rectified output of a1
+% z1 = max(a1, 0); % rectified output of a1
 % z1 = tanh(a1);
 % z1 = 1 ./ (1 + exp(-a1));
+z1 = asinh(a1);
 
 % second layer
 a2 = z1 * W2;
@@ -26,7 +27,8 @@ a2 = a2 + repmat(bias2, [size(a2,1), 1]); % bias
 
 % activation function
 % z2 = max(a2, 0); % rectified output of a2
-z2 = tanh(a2);
+% z2 = tanh(a2);
 % z2 = 1 ./ (1 + exp(-a2));
+z2 = asinh(a2);
 
 end

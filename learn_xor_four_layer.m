@@ -87,9 +87,10 @@ plot(sort(output)); hold on; plot(wta);
 %% graph result of classification for comparison
 
 figure;
+clear ax;
 
 % plot the original data: red is positive, blue is negative
-ax(1) = subplot(2,2,1);
+ax(1) = subplot(2,3,1);
 plot(x_pos(:,1), x_pos(:,2), 'ro');
 hold on;
 plot(x_neg(:,1), x_neg(:,2), 'bo');
@@ -104,7 +105,7 @@ pos = output > 0.5;
 train_pos = x_data(pos,:);
 train_neg = x_data(~pos,:);
 
-ax(2) = subplot(2,2,2);
+ax(2) = subplot(2,3,2);
 plot(train_pos(:,1), train_pos(:,2), 'ro');
 hold on;
 plot(train_neg(:,1), train_neg(:,2), 'bo');
@@ -117,7 +118,7 @@ diff_neg = pos == 0 & y_hat == 1;
 x_diff_pos = x_data(diff_pos,:);
 x_diff_neg = x_data(diff_neg,:);
 
-ax(3) = subplot(2,2,3);
+ax(3) = subplot(2,3,4);
 plot(x_diff_pos(:,1), x_diff_pos(:,2), 'ro');
 hold on;
 plot(x_diff_neg(:,1), x_diff_neg(:,2), 'bo');
@@ -133,7 +134,7 @@ pos = output > 0.5;
 train_pos = x_test(pos,:);
 train_neg = x_test(~pos,:);
 
-ax(4) = subplot(2,2,4);
+ax(4) = subplot(2,3,5);
 plot(train_pos(:,1), train_pos(:,2), 'r.', 'markersize', 15);
 hold on;
 plot(train_neg(:,1), train_neg(:,2), 'b.', 'markersize', 15);
@@ -141,3 +142,6 @@ hold off;
 title('Decision boundaries');
 
 linkaxes(ax, 'xy');
+
+subplot(1,3,3);
+surf(x_test(:,1), x_test(:,2), output);

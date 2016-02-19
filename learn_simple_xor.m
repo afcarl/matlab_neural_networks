@@ -36,7 +36,7 @@ bias2 = rand(1, n_outputs) * 2 - 1;
 
 %% train the network
 
-LEARNING_RATE = 0.001;
+LEARNING_RATE = 0.01;
 batch_error = numel(y_hat);
 
 % can adjust this value based on how the model seems to be converging
@@ -46,8 +46,8 @@ while batch_error > 30
     y_batch = y_hat(batch, :);
     
     for l=1:n_epochs
-        [z1,z2] = vmm_compute_two_layer(x_batch,W1,W2,bias1,bias2);
-        [W1,W2,bias1,bias2] = weight_update_two_layer(x_batch,W1,W2,bias1,bias2,z1,z2,y_batch,LEARNING_RATE);
+        [z1,z2,a1,a2] = vmm_compute_two_layer(x_batch,W1,W2,bias1,bias2);
+        [W1,W2,bias1,bias2] = weight_update_two_layer(x_batch,W1,W2,bias1,bias2,a1,a2,z1,z2,y_batch,LEARNING_RATE);
     end
     
     [~,z2] = vmm_compute_two_layer(x_data,W1,W2,bias1,bias2);
@@ -72,9 +72,10 @@ plot(sort(z2)); hold on; plot(wta);
 %% graph result of classification for comparison
 
 figure;
+clear ax;
 
 % plot the original data: red is positive, blue is negative
-ax(1) = subplot(3,1,1);
+ax(1) = subplot(3,2,1);
 plot(x_pos(:,1), x_pos(:,2), 'ro');
 hold on;
 plot(x_neg(:,1), x_neg(:,2), 'bo');
@@ -89,7 +90,7 @@ pos = z2 > 0.5;
 train_pos = x_data(pos,:);
 train_neg = x_data(~pos,:);
 
-ax(2) = subplot(3,1,2);
+ax(2) = subplot(3,2,3);
 plot(train_pos(:,1), train_pos(:,2), 'ro');
 hold on;
 plot(train_neg(:,1), train_neg(:,2), 'bo');
@@ -100,8 +101,12 @@ title('Learned classifications');
 diff = pos ~= y_hat;
 x_diff = x_data(diff,:);
 
-ax(3) = subplot(3,1,3);
+ax(3) = subplot(3,2,5);
 plot(x_diff(:,1), x_diff(:,2), 'go');
 title('Incorrect classifications');
 
 linkaxes(ax, 'xy');
+
+% plot 3d
+subplot(1,2,2);
+plot3(x_data(:,1), x_data(:,2), z2, 'o');
