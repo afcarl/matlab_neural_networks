@@ -6,7 +6,7 @@ n_outputs = 1;      % one output (binary classification problem)
 
 %% generate our training set
 
-% learn a complex function (like a circle with a whole in it)
+% learn a complex function (like a circle with a hole in it)
 N_POINTS = 1000;
 x_data = rand(N_POINTS, 2); % 2-dimensional data
 y_hat = x_data(:,1) + x_data(:,2) > 0.3 ...
@@ -54,7 +54,7 @@ LEARNING_RATE = 0.01;
 batch_error = numel(y_hat);
 
 % can adjust this value based on how the model seems to be converging
-while batch_error > 0.005
+while batch_error > 0.05
     batch = randperm(N_POINTS, 200);
     x_batch = x_data(batch, :);
     y_batch = y_hat(batch, :);
@@ -118,7 +118,7 @@ x_diff_pos = x_data(diff_pos,:);
 x_diff_neg = x_data(diff_neg,:);
 
 ax(3) = subplot(2,2,3);
-plot(x_diff_pos(:,1), x_diff_pos(:,2), 'go');
+plot(x_diff_pos(:,1), x_diff_pos(:,2), 'ro');
 hold on;
 plot(x_diff_neg(:,1), x_diff_neg(:,2), 'bo');
 hold off;
