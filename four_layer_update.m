@@ -4,21 +4,25 @@ function [output,W1,W2,W3,W4,bias1,bias2,bias3,bias4] = four_layer_update(x,yhat
 a1 = x * W1;
 a1 = a1 + repmat(bias1, [size(a1,1), 1]); % bias
 z1 = max(a1, 0); % rectified output of a1
+% z1 = asinh(a1);
 
 % second layer
 a2 = z1 * W2;
 a2 = a2 + repmat(bias2, [size(a2,1), 1]); % bias
 z2 = max(a2, 0); % rectified output of a2
+% z2 = asinh(a2);
 
 % third layer
 a3 = z2 * W3;
 a3 = a3 + repmat(bias3, [size(a2,1), 1]); % bias
 z3 = max(a3, 0); % rectified output of a2
+% z3 = asinh(a3);
 
 % fourth layer
 a4 = z3 * W4;
 a4 = a4 + repmat(bias4, [size(a2,1), 1]); % bias
 z4 = max(a4, 0); % rectified output of a2
+% z4 = asinh(a4);
 
 output = z4;
 
@@ -35,6 +39,12 @@ if LEARN
     z3_grad = (z3 > 0);
     z2_grad = (z2 > 0);
     z1_grad = (z1 > 0);
+    
+    % ***** asinh *****
+%     z4_grad = 1 ./ (a4 .* a4 + 1);
+%     z3_grad = 1 ./ (a3 .* a3 + 1);
+%     z2_grad = 1 ./ (a2 .* a2 + 1);
+%     z1_grad = 1 ./ (a1 .* a1 + 1);
 
     % updates
     l4_delta = d_error .* z4_grad;

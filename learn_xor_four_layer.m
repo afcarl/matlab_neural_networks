@@ -144,4 +144,4 @@ title('Decision boundaries');
 linkaxes(ax, 'xy');
 
 subplot(1,3,3);
-surf(x_test(:,1), x_test(:,2), output);
+mesh(reshape(output, VERT, HORI));
