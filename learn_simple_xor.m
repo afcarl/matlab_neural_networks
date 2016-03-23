@@ -7,7 +7,7 @@ n_outputs = 1;      % one output (binary classification problem)
 %% generate our training set
 
 % learn an xor function
-N_POINTS = 1000;
+N_POINTS = 1000;a 
 x_data = rand(N_POINTS, 2); % 2-dimensional data
 y_hat = x_data(:,1) + x_data(:,2) > 0.7 & x_data(:,1) + x_data(:,2) < 1.3;
 

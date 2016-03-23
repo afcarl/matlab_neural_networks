@@ -28,6 +28,10 @@ d_error = yhat - z2; % derivative of l2 error
 % z1_grad = (z1 > 0);
 
 % ***** sinh-1 *****
+% z2_grad = 1 ./ sqrt(a2 .* a2 + 1);
+% z1_grad = 1 ./ sqrt(a1 .* a1 + 1);
+
+% ***** neuron-like *****
 z2_grad = 1 ./ (a2 .* a2 + 1);
 z1_grad = 1 ./ (a1 .* a1 + 1);
 
